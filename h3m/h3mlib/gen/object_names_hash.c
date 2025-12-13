@@ -318,7 +318,7 @@ static int T0[] = {
 	1021, 1996, 264, 1436, 944, 1487, 978, 1094, 1598, 1462,
 	256, 288, 453, 1143, 722, 1237, 1958, 909, 399, 1840,
 	1417, 711, 1283, 723, 1775, 102, 47, 716, 1461, 400,
-	2141, 186, 227, 
+	2141, 186, 227,
 };
 
 static int T1[] = {
@@ -622,7 +622,7 @@ static int T1[] = {
 	8, 1243, 873, 676, 1524, 1392, 27, 1007, 1466, 1194,
 	781, 114, 833, 717, 876, 1010, 1212, 1037, 546, 329,
 	1184, 1122, 2060, 512, 756, 1831, 1745, 1961, 1858, 1867,
-	1000, 1866, 813, 
+	1000, 1866, 813,
 };
 
 static int T2[] = {
@@ -926,14 +926,66 @@ static int T2[] = {
 	1399, 1446, 781, 1851, 1461, 1413, 1215, 92, 234, 877,
 	492, 1527, 888, 424, 1437, 1413, 1860, 369, 923, 1527,
 	348, 1026, 1846, 463, 162, 554, 425, 2075, 264, 7,
-	1558, 1664, 1325, 
+	1558, 1664, 1325,
 };
 
 #define uchar unsigned char
-#include <stdio.h>
+
 int
 object_names_hash(const uchar *key)
 {
+	/* Special ifs for known objects, but wrongly generated via algo */
+
+	/* Not sure what these are, seemd random */
+	// if (strcmp((const char *)key, "object207") == 0) { return 207; }
+	// else if (strcmp((const char *)key, "object487") == 0) { return 487; }
+	// else if (strcmp((const char *)key, "object488") == 0) { return 488; }
+	// else if (strcmp((const char *)key, "object817") == 0) { return 817; }
+	// else if (strcmp((const char *)key, "object949") == 0) { return 949; }
+	// else if (strcmp((const char *)key, "object965") == 0) { return 965; }
+
+	/* Monoliths Tow Way */
+	if (strcmp((const char *)key, "Monolith Two Way0") == 0) { return 1041; }
+	else if (strcmp((const char *)key, "Monolith Two Way1") == 0) { return 1042; }
+	else if (strcmp((const char *)key, "Monolith Two Way2") == 0) { return 1043; }
+	else if (strcmp((const char *)key, "Monolith Two Way3") == 0) { return 1044; }
+	else if (strcmp((const char *)key, "Monolith Two Way4") == 0) { return 1045; }
+	else if (strcmp((const char *)key, "Monolith Two Way5") == 0) { return 1074; }
+
+	/* Random building? Not usre if worth adding */
+	// else if (strcmp((const char *)key, "object1229") == 0) { return 1229; }
+
+	/* Creature Generators - faction specific (player owned) */
+	else if (strcmp((const char *)key, "Owned Dwelling Castle0") == 0) { return 1230; }
+	else if (strcmp((const char *)key, "Owned Dwelling Rampart0") == 0) { return 1231; }
+	else if (strcmp((const char *)key, "Owned Dwelling Tower0") == 0) { return 1232; }
+	else if (strcmp((const char *)key, "Owned Dwelling Inferno0") == 0) { return 1233; }
+	else if (strcmp((const char *)key, "Owned Dwelling Necropolis0") == 0) { return 1234; }
+	else if (strcmp((const char *)key, "Owned Dwelling Dungeon0") == 0) { return 1235; }
+	else if (strcmp((const char *)key, "Owned Dwelling Stronghold0") == 0) { return 1236; }
+	else if (strcmp((const char *)key, "Owned Dwelling Fortress0") == 0) { return 1237; }
+	else if (strcmp((const char *)key, "Owned Dwelling Conflux0") == 0) { return 1238; }
+
+	/* Random Dwelling by creature level */
+	else if (strcmp((const char *)key, "Random Dwelling Level1") == 0) { return 1245; }
+	else if (strcmp((const char *)key, "Random Dwelling Level2") == 0) { return 1239; }
+	else if (strcmp((const char *)key, "Random Dwelling Level3") == 0) { return 1240; }
+	else if (strcmp((const char *)key, "Random Dwelling Level4") == 0) { return 1241; }
+	else if (strcmp((const char *)key, "Random Dwelling Level5") == 0) { return 1242; }
+	else if (strcmp((const char *)key, "Random Dwelling Level6") == 0) { return 1243; }
+	else if (strcmp((const char *)key, "Random Dwelling Level7") == 0) { return 1244; }
+
+	/* Towns (no owner) */
+	else if (strcmp((const char *)key, "No Owner Random0") == 0) { return 1321; }
+	else if (strcmp((const char *)key, "No Owner Castle0") == 0) { return 1322; }
+	else if (strcmp((const char *)key, "No Owner Tower0") == 0) { return 1323; }
+	else if (strcmp((const char *)key, "No Owner Inferno0") == 0) { return 1324; }
+	else if (strcmp((const char *)key, "No Owner Necropolis0") == 0) { return 1325; }
+	else if (strcmp((const char *)key, "No Owner Fortress0") == 0) { return 1326; }
+	else if (strcmp((const char *)key, "No Owner Stronghold0") == 0) { return 1327; }
+	else if (strcmp((const char *)key, "No Owner Rampart0") == 0) { return 1328; }
+	else if (strcmp((const char *)key, "No Owner Dungeon0") == 0) { return 1329; }
+
 	int i;
 	unsigned f0, f1, f2;
 	const uchar *kp = key;
@@ -967,6 +1019,5 @@ object_names_hash(const uchar *key)
 			f2 = 0;
 	}
 
-	// printf("NEW %d %d %d\n", f0, f1, f2);
 	return g[f0] + g[f1] + g[f2];
 }
