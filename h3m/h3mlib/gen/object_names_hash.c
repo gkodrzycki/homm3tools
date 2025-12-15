@@ -1,3 +1,5 @@
+#include <string.h>
+
 /*
  * d=3
  * n=2169
