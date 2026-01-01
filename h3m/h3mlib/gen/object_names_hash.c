@@ -988,6 +988,9 @@ object_names_hash(const uchar *key)
 	else if (strcmp((const char *)key, "No Owner Rampart0") == 0) { return 1328; }
 	else if (strcmp((const char *)key, "No Owner Dungeon0") == 0) { return 1329; }
 
+	/* Broken units */
+	else if (strcmp((const char *)key, "Iron Golem0") == 0) { return 1109; }
+
 	int i;
 	unsigned f0, f1, f2;
 	const uchar *kp = key;
