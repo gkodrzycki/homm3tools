@@ -106,27 +106,12 @@ int dispatch_##TYPE(unsigned char adjacent,                                     
         POOL_CASE_ANY_CORNER(W | E | S, M_HORI, pool_half_crossroads_vert)             \
         POOL_CASE_ANY_CORNER(W | E | N, M_VERT | M_HORI, pool_half_crossroads_vert)    \
                                                                                        \
-        /* Diagonals */                                                                \
-        POOL_CASE(N | E | NW | SE, NWSE_DIAGONAL_MIRR(M_HORI, M_VERT), pool_diagonals) \
-        POOL_CASE(N | E | NW, NWSE_DIAGONAL_MIRR(M_HORI, M_VERT), pool_diagonals)      \
-        POOL_CASE(N | E | SE, NWSE_DIAGONAL_MIRR(M_HORI, M_VERT), pool_diagonals)      \
+        /* Diagonals (1-cardinal + diagonal pairs only) */                             \
         POOL_CASE(N | NW | SE, NWSE_DIAGONAL_MIRR(M_HORI, M_VERT), pool_diagonals)     \
         POOL_CASE(E | NW | SE, NWSE_DIAGONAL_MIRR(M_HORI, M_VERT), pool_diagonals)     \
-                                                                                       \
-        POOL_CASE(W | S | NW | SE, NWSE_DIAGONAL_MIRR(M_HORI, M_VERT), pool_diagonals) \
-        POOL_CASE(W | S | NW, NWSE_DIAGONAL_MIRR(M_HORI, M_VERT), pool_diagonals)      \
-        POOL_CASE(W | S | SE, NWSE_DIAGONAL_MIRR(M_HORI, M_VERT), pool_diagonals)      \
         POOL_CASE(S | NW | SE, NWSE_DIAGONAL_MIRR(M_HORI, M_VERT), pool_diagonals)     \
         POOL_CASE(W | NW | SE, NWSE_DIAGONAL_MIRR(M_HORI, M_VERT), pool_diagonals)     \
-                                                                                       \
-        POOL_CASE(N | W | NE | SW, NESW_DIAGONAL_MIRR(M_HORI, M_VERT), pool_diagonals) \
-        POOL_CASE(N | W | NE, NESW_DIAGONAL_MIRR(M_HORI, M_VERT), pool_diagonals)      \
-        POOL_CASE(N | W | SW, NESW_DIAGONAL_MIRR(M_HORI, M_VERT), pool_diagonals)      \
         POOL_CASE(N | NE | SW, NESW_DIAGONAL_MIRR(M_HORI, M_VERT), pool_diagonals)     \
-                                                                                       \
-        POOL_CASE(E | S | NE | SW, NESW_DIAGONAL_MIRR(M_HORI, M_VERT), pool_diagonals) \
-        POOL_CASE(E | S | NE, NESW_DIAGONAL_MIRR(M_HORI, M_VERT), pool_diagonals)      \
-        POOL_CASE(E | S | SW, NESW_DIAGONAL_MIRR(M_HORI, M_VERT), pool_diagonals)      \
         POOL_CASE(E | NE | SW, NESW_DIAGONAL_MIRR(M_HORI, M_VERT), pool_diagonals)     \
         POOL_CASE(S | NE | SW, NESW_DIAGONAL_MIRR(M_HORI, M_VERT), pool_diagonals)     \
                                                                                        \
@@ -135,34 +120,66 @@ int dispatch_##TYPE(unsigned char adjacent,                                     
         POOL_CASE(E | N |                SW,          M_VERT, pool_corners)            \
         POOL_CASE(E | N |           SE | SW,          M_VERT, pool_corners)            \
         POOL_CASE(E | N |      NW |      SW,          M_VERT, pool_corners)            \
+        POOL_CASE(E | N |      NW | SE | SW,          M_VERT, pool_corners)            \
         POOL_CASE(E | N | NE               ,          M_VERT, pool_corners)            \
+        POOL_CASE(E | N | NE |           SW,          M_VERT, pool_corners)            \
         POOL_CASE(E | N | NE |      SE     ,          M_VERT, pool_corners)            \
+        POOL_CASE(E | N | NE |      SE | SW,          M_VERT, pool_corners)            \
         POOL_CASE(E | N | NE | NW          ,          M_VERT, pool_corners)            \
+        POOL_CASE(E | N | NE | NW |      SW,          M_VERT, pool_corners)            \
         POOL_CASE(E | N | NE | NW | SE     ,          M_VERT, pool_corners)            \
+        POOL_CASE(E | N | NW | SE           ,          M_VERT, pool_corners)            \
+        POOL_CASE(E | N | NW                  ,          M_VERT, pool_corners)            \
+        POOL_CASE(E | N |           SE        ,          M_VERT, pool_corners)            \
+        POOL_CASE(E | N | NE | NW | SE | SW,          M_VERT, pool_corners)            \
         POOL_CASE(E | S                    , 0,               pool_corners)            \
         POOL_CASE(E | S |           SE     , 0,               pool_corners)            \
         POOL_CASE(E | S |           SE | SW, 0,               pool_corners)            \
         POOL_CASE(E | S |      NW          , 0,               pool_corners)            \
         POOL_CASE(E | S |      NW |      SW, 0,               pool_corners)            \
+        POOL_CASE(E | S |      NW |   SE   , 0,               pool_corners)            \
+        POOL_CASE(E | S |      NW | SE | SW, 0,               pool_corners)            \
         POOL_CASE(E | S | NE |      SE     , 0,               pool_corners)            \
         POOL_CASE(E | S | NE |      SE | SW, 0,               pool_corners)            \
         POOL_CASE(E | S | NE | NW          , 0,               pool_corners)            \
+        POOL_CASE(E | S | NE | NW |      SW, 0,               pool_corners)            \
+        POOL_CASE(E | S | NE | NW | SE     , 0,               pool_corners)            \
+        POOL_CASE(E | S | NE | SW           , 0,               pool_corners)            \
+        POOL_CASE(E | S | NE                  , 0,               pool_corners)            \
+        POOL_CASE(E | S |           SW        , 0,               pool_corners)            \
+        POOL_CASE(E | S | NE | NW | SE | SW, 0,               pool_corners)            \
         POOL_CASE(W | N                    , M_HORI | M_VERT, pool_corners)            \
         POOL_CASE(W | N |           SE     , M_HORI | M_VERT, pool_corners)            \
         POOL_CASE(W | N |           SE | SW, M_HORI | M_VERT, pool_corners)            \
         POOL_CASE(W | N |      NW          , M_HORI | M_VERT, pool_corners)            \
         POOL_CASE(W | N |      NW |      SW, M_HORI | M_VERT, pool_corners)            \
+        POOL_CASE(W | N |      NW |   SE   , M_HORI | M_VERT, pool_corners)            \
+        POOL_CASE(W | N |      NW | SE | SW, M_HORI | M_VERT, pool_corners)            \
         POOL_CASE(W | N | NE |      SE     , M_HORI | M_VERT, pool_corners)            \
+        POOL_CASE(W | N | NE |      SE | SW, M_HORI | M_VERT, pool_corners)            \
         POOL_CASE(W | N | NE | NW          , M_HORI | M_VERT, pool_corners)            \
         POOL_CASE(W | N | NE | NW      | SW, M_HORI | M_VERT, pool_corners)            \
+        POOL_CASE(W | N | NE | NW | SE     , M_HORI | M_VERT, pool_corners)            \
+        POOL_CASE(W | N | NE | SW           , M_HORI | M_VERT, pool_corners)            \
+        POOL_CASE(W | N | NE                  , M_HORI | M_VERT, pool_corners)            \
+        POOL_CASE(W | N |           SW        , M_HORI | M_VERT, pool_corners)            \
+        POOL_CASE(W | N | NE | NW | SE | SW, M_HORI | M_VERT, pool_corners)            \
         POOL_CASE(W | S                    , M_HORI,          pool_corners)            \
         POOL_CASE(W | S |                SW, M_HORI,          pool_corners)            \
         POOL_CASE(W | S |           SE | SW, M_HORI,          pool_corners)            \
         POOL_CASE(W | S |      NW |      SW, M_HORI,          pool_corners)            \
         POOL_CASE(W | S |      NW | SE | SW, M_HORI,          pool_corners)            \
         POOL_CASE(W | S | NE               , M_HORI,          pool_corners)            \
+        POOL_CASE(W | S | NE |           SW, M_HORI,          pool_corners)            \
         POOL_CASE(W | S | NE |      SE     , M_HORI,          pool_corners)            \
+        POOL_CASE(W | S | NE |      SE | SW, M_HORI,          pool_corners)            \
         POOL_CASE(W | S | NE | NW          , M_HORI,          pool_corners)            \
+        POOL_CASE(W | S | NE | NW |      SW, M_HORI,          pool_corners)            \
+        POOL_CASE(W | S | NE | NW | SE     , M_HORI,          pool_corners)            \
+        POOL_CASE(W | S | NW | SE           , M_HORI,          pool_corners)            \
+        POOL_CASE(W | S | NW                  , M_HORI,          pool_corners)            \
+        POOL_CASE(W | S |           SE        , M_HORI,          pool_corners)            \
+        POOL_CASE(W | S | NE | NW | SE | SW, M_HORI,          pool_corners)            \
                                                                                        \
         /* Horizontal */                                                               \
         SINGLE_CASE(E, 0, SP_HORI_END)                                                 \
