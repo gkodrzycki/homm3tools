@@ -1,4 +1,4 @@
-﻿// Created by John Åkerblom 2014-11-18
+// Created by John Åkerblom 2014-11-18
 
 #ifndef __H3MLIB_H_DEF__
 #define __H3MLIB_H_DEF__
@@ -62,6 +62,9 @@ extern "C" {
     int h3m_object_text(h3mlib_ctx_t ctx, const char *name, int x, int y, int z,
         const char *text);
     int h3m_object_set_owner(h3mlib_ctx_t ctx, int od_index, int owner);
+    // Sets whether a town object has a fort (has_buildings=0, has_fort=0/1).
+    // Must be called before any name/creature customisation changes the body layout.
+    int h3m_object_set_has_fort(h3mlib_ctx_t ctx, int od_index, int has_fort);
     int h3m_object_set_subtype(h3mlib_ctx_t ctx, int od_index, int subtype);
     int h3m_object_set_quantitiy(h3mlib_ctx_t ctx, int od_index, int quantity);
     int h3m_object_set_disposition(h3mlib_ctx_t ctx, int od_index,

@@ -642,6 +642,31 @@ int h3m_object_set_owner(h3mlib_ctx_t ctx, int od_index, int owner)
     return 0;
 }
 
+int h3m_object_set_has_fort(h3mlib_ctx_t ctx, int od_index, int has_fort)
+{
+    struct H3M_OD_ENTRY *od_entry = &ctx->h3m.od.entries[od_index];
+    struct META_OD_ENTRY *meta_od_entry = &ctx->meta.od_entries[od_index];
+    uint8_t *body = od_entry->body;
+
+    if (META_OBJECT_TOWN != meta_od_entry->oa_type)
+        return 1;
+
+    // Works on the binary-compatible (file-format) blob that h3m_add_od places
+    // by default.  Layout when has_name=0, has_creatures=0 (the default):
+    //   byte 0 : owner
+    //   byte 1 : has_name      (0)
+    //   byte 2 : has_creatures (0)
+    //   byte 3 : formation
+    //   byte 4 : has_buildings → set to 0 so that has_fort is used
+    //   byte 5 : has_fort      → 0 or 1
+    // Must be called before any name/creature customisation that shifts the
+    // body layout.
+    body[4] = 0x00;                    // has_buildings = 0
+    body[5] = has_fort ? 0x01 : 0x00; // has_fort
+
+    return 0;
+}
+
 int h3m_object_set_subtype(h3mlib_ctx_t ctx, int od_index, int subtype)
 {
     struct H3M_OD_ENTRY *od_entry = &ctx->h3m.od.entries[od_index];
