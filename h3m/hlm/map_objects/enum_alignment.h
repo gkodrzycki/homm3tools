@@ -1,4 +1,4 @@
-// Created 2014-12-24 by John Åkerblom
+// Created 2014-12-24 by John ï¿½kerblom
 #pragma once
 
 enum class Alignment

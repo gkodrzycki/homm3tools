@@ -384,7 +384,8 @@ int dispatch_terrain_generic(unsigned char adjacent_same,
                 break;
         default:
                 /* failed to determine border */
-                return 1;
+                borderless_generic(pic);
+                return 0;
         }
 
         return 0;
@@ -476,7 +477,8 @@ int dispatch_terrain_dirt(unsigned char adjacent_sand,
                 break;
         default:
                 /* failed to determine border */
-                return 1;
+                borderless_dirt(pic);
+                return 0;
         }
 
         return 0;
@@ -561,7 +563,8 @@ int dispatch_terrain_water(unsigned char adjacent_same,
                 break;
         default:
                 /* failed to determine border */
-                return 1;
+                borderless_water(pic);
+                return 0;
         }
 
         return 0;
@@ -644,7 +647,8 @@ int dispatch_terrain_rock(unsigned char adjacent_same, unsigned char *pic)
                 break;
         default:
                 /* failed to determine border */
-                return 1;
+                borderless_rock(pic);
+                return 0;
         }
 
         return 0;
